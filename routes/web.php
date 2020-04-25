@@ -13,6 +13,13 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
+$router->get('/', 'SetupController@start');
+$router->get('setup/shared', 'SetupController@shared');
+$router->get('setup/external', 'SetupController@external');
+
+$router->get('test/start/{type}', 'TestController@start');
+$router->post('test/start/{type}', 'TestController@start');
+$router->get('test/shared/{type}', 'TestController@shared');
+$router->post('test/shared/{type}', 'TestController@shared');
+$router->get('test/external/{type}', 'TestController@external');
+$router->post('test/external/{type}', 'TestController@external');
