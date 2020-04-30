@@ -27,6 +27,7 @@ class SetupController extends Controller
         setcookie('shared_lax', 'shared-site-with-same-site-lax_'.$test->id, ['samesite' => 'lax', 'path' => '/']);
         setcookie('shared_strict', 'shared-site-with-same-site-strict_'.$test->id, ['samesite' => 'strict', 'path' => '/']);
         setcookie('shared_default', 'shared-site-with-only-defaults_'.$test->id, ['path' => '/']);
+        setcookie('shared_invalid', 'shared-site-with-invalid-value_'.$test->id, ['path' => '/', 'samesite' => 'invalid']);
 
         return view('redirect', ['url' => $this->redirect('external', 'setup/external', $test)]);
     }
@@ -42,6 +43,7 @@ class SetupController extends Controller
         setcookie('external_lax', 'external-site-with-same-site-lax_'.$test->id, ['samesite' => 'lax', 'path' => '/']);
         setcookie('external_strict', 'external-site-with-same-site-strict_'.$test->id, ['samesite' => 'strict', 'path' => '/']);
         setcookie('external_default', 'external-site-with-only-defaults_'.$test->id, ['path' => '/']);
+        setcookie('external_invalid', 'external-site-with-invalid-value_'.$test->id, ['path' => '/', 'samesite' => 'invalid']);
 
         return view('redirect', ['url' => $this->redirect('home', 'test/start/recent', $test)]);
     }

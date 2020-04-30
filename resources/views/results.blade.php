@@ -3,8 +3,8 @@
 @section('content')
     <?php
     $cookies = [
-        'shared_none', 'shared_none_secure', 'shared_lax', 'shared_strict', 'shared_default',
-        'external_none', 'external_none_secure', 'external_lax', 'external_strict', 'external_default',
+        'shared_none', 'shared_none_secure', 'shared_lax', 'shared_strict', 'shared_default', 'shared_invalid',
+        'external_none', 'external_none_secure', 'external_lax', 'external_strict', 'external_default', 'external_invalid',
     ];
     ?>
 
