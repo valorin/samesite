@@ -10,9 +10,13 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
-    protected function redirect(string $domain, string $path, Test $test): string
+    protected function redirect(string $domain, string $path, bool $secure, Test $test): string
     {
-        return 'https://'.config('samesite.'.$domain)."/{$path}?id={$test->id}";
+        $url = $secure
+            ? 'https://'.config('samesite.'.$domain)
+            : 'http://'.config('samesite.insecure.'.$domain).':8080';
+
+        return "{$url}/{$path}?id={$test->id}";
     }
 
     protected function loadTest(Request $request): Test

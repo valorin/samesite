@@ -5,7 +5,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": "^7.2.5",
+        "php": "^7.4",
         "illuminate/redis": "^7.6",
         "laravel/lumen-framework": "^7.0"
     },

@@ -23,3 +23,5 @@ $router->get('test/shared/{type}', 'TestController@shared');
 $router->post('test/shared/{type}', 'TestController@shared');
 $router->get('test/external/{type}', 'TestController@external');
 $router->post('test/external/{type}', 'TestController@external');
+
+$router->get('results', 'TestController@results');

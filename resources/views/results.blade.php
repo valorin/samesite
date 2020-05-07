@@ -3,8 +3,10 @@
 @section('content')
     <?php
     $cookies = [
-        'shared_none', 'shared_none_secure', 'shared_lax', 'shared_strict', 'shared_default', 'shared_invalid',
-        'external_none', 'external_none_secure', 'external_lax', 'external_strict', 'external_default', 'external_invalid',
+        'http_shared_none', 'http_shared_none_secure', 'http_shared_lax', 'http_shared_strict', 'http_shared_default', 'http_shared_invalid',
+        'https_shared_none', 'https_shared_none_secure', 'https_shared_lax', 'https_shared_strict', 'https_shared_default', 'https_shared_invalid',
+        'http_external_none', 'http_external_none_secure', 'http_external_lax', 'http_external_strict', 'http_external_default', 'http_external_invalid',
+        'https_external_none', 'https_external_none_secure', 'https_external_lax', 'https_external_strict', 'https_external_default', 'https_external_invalid',
     ];
     ?>
 

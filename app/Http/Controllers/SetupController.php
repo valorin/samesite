@@ -13,7 +13,7 @@ class SetupController extends Controller
         $test = Test::start();
         $this->log($test, 'Starting setup');
 
-        return view('redirect', ['url' => $this->redirect('shared', 'setup/shared', $test)]);
+        return view('redirect', ['url' => $this->redirect('shared', 'setup/shared', true, $test)]);
     }
 
     public function shared(Request $request)
@@ -22,14 +22,9 @@ class SetupController extends Controller
         $test->shared = true;
         $test->save();
 
-        setcookie('shared_none', 'shared-site-with-same-site-none-without-secure_'.$test->id, ['samesite' => 'none', 'path' => '/']);
-        setcookie('shared_none_secure', 'shared-site-with-same-site-none-with-secure_'.$test->id, ['secure' => true, 'samesite' => 'none', 'path' => '/']);
-        setcookie('shared_lax', 'shared-site-with-same-site-lax_'.$test->id, ['samesite' => 'lax', 'path' => '/']);
-        setcookie('shared_strict', 'shared-site-with-same-site-strict_'.$test->id, ['samesite' => 'strict', 'path' => '/']);
-        setcookie('shared_default', 'shared-site-with-only-defaults_'.$test->id, ['path' => '/']);
-        setcookie('shared_invalid', 'shared-site-with-invalid-value_'.$test->id, ['path' => '/', 'samesite' => 'invalid']);
+        $this->setCookies('shared', $request->isSecure(), $test);
 
-        return view('redirect', ['url' => $this->redirect('external', 'setup/external', $test)]);
+        return view('redirect', ['url' => $this->redirect('external', 'setup/external', $request->isSecure(), $test)]);
     }
 
     public function external(Request $request)
@@ -38,13 +33,21 @@ class SetupController extends Controller
         $test->external = true;
         $test->save();
 
-        setcookie('external_none', 'external-site-with-same-site-none-without-secure_'.$test->id, ['samesite' => 'none', 'path' => '/']);
-        setcookie('external_none_secure', 'external-site-with-same-site-none-with-secure_'.$test->id, ['secure' => true, 'samesite' => 'none', 'path' => '/']);
-        setcookie('external_lax', 'external-site-with-same-site-lax_'.$test->id, ['samesite' => 'lax', 'path' => '/']);
-        setcookie('external_strict', 'external-site-with-same-site-strict_'.$test->id, ['samesite' => 'strict', 'path' => '/']);
-        setcookie('external_default', 'external-site-with-only-defaults_'.$test->id, ['path' => '/']);
-        setcookie('external_invalid', 'external-site-with-invalid-value_'.$test->id, ['path' => '/', 'samesite' => 'invalid']);
+        $this->setCookies('external', $request->isSecure(), $test);
 
-        return view('redirect', ['url' => $this->redirect('home', 'test/start/recent', $test)]);
+        return view('redirect', ['url' => $request->isSecure()
+            ? $this->redirect('shared', 'setup/shared', false, $test)       // setup insecure routes
+            : $this->redirect('home', 'test/start/recent', true, $test)]);  // redirect to tests
+    }
+
+    protected function setCookies(string $domain, bool $secure, Test $test)
+    {
+        $prefix = $secure ? 'https_' : 'http_';
+        setcookie($prefix.$domain.'_none', $test->id, ['samesite' => 'none', 'path' => '/']);
+        setcookie($prefix.$domain.'_none_secure', $test->id, ['secure' => true, 'samesite' => 'none', 'path' => '/']);
+        setcookie($prefix.$domain.'_lax', $test->id, ['samesite' => 'lax', 'path' => '/']);
+        setcookie($prefix.$domain.'_strict', $test->id, ['samesite' => 'strict', 'path' => '/']);
+        setcookie($prefix.$domain.'_default', $test->id, ['path' => '/']);
+        setcookie($prefix.$domain.'_invalid', $test->id, ['path' => '/', 'samesite' => 'invalid']);
     }
 }

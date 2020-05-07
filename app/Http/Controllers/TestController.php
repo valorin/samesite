@@ -15,15 +15,15 @@ class TestController extends Controller
 
         if ($this->isPost($request)) {
             return view('redirect', [
-                'url' => $this->redirect('shared', "test/shared/{$type}", $test),
+                'url' => $this->redirect('shared', "test/shared/{$type}", $request->isSecure(), $test),
                 'post' => true,
             ]);
         }
 
         return view('tests', [
-            'shared' => $this->redirect('shared', 'test/shared/'.$type, $test),
-            'external' => $this->redirect('external', 'test/external/'.$type, $test),
-            'redirect' => $this->redirect('shared', 'test/shared/'.$type, $test),
+            'shared' => $this->redirect('shared', 'test/shared/'.$type, $request->isSecure(), $test),
+            'external' => $this->redirect('external', 'test/external/'.$type, $request->isSecure(), $test),
+            'redirect' => $this->redirect('shared', 'test/shared/'.$type, $request->isSecure(), $test),
         ]);
     }
 
@@ -39,7 +39,7 @@ class TestController extends Controller
         }
 
         return view('redirect', [
-            'url' => $this->redirect('external', "test/external/{$type}", $test),
+            'url' => $this->redirect('external', "test/external/{$type}", $request->isSecure(), $test),
             'post' => $this->isPost($request),
         ]);
     }
@@ -55,16 +55,31 @@ class TestController extends Controller
             return view('iframe');
         }
 
-        if ($this->isPost($request)) {
-            return $this->isRecent($request)
-                ? view('redirect', ['url' => $this->redirect('home', 'test/start/delayed', $test), 'delay' => 120])
-                : view('results', ['test' => $test]);
+        // finshed initial GET round, redirect to POST
+        if (! $this->isPost($request)) {
+            return view('redirect', [
+                'url' => $this->redirect('home', "test/start/{$type}", $request->isSecure(), $test),
+                'post' => true,
+            ]);
         }
 
-        return view('redirect', [
-            'url' => $this->redirect('home', "test/start/{$type}", $test),
-            'post' => true,
-        ]);
+        // redirect to insecure tests after POST round
+        if ($request->isSecure()) {
+            return view('redirect', ['url' => $this->redirect('home', "test/start/{$type}", false, $test)]);
+        }
+
+        // delay redirect for delayed tests after insecure round
+        if ($this->isRecent($request)) {
+            return view('redirect', ['url' => $this->redirect('home', 'test/start/delayed', true, $test), 'delay' => 120]);
+        }
+
+        // And we're finally done
+        return view('redirect', ['url' => $this->redirect('home', 'results', true, $test)]);
+    }
+
+    public function results(Request $request)
+    {
+        return view('results', ['test' => $this->loadTest($request)]);
     }
 
     protected function isIframe(Request $request): bool

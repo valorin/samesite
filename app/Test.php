@@ -25,6 +25,9 @@ class Test implements Arrayable
     /** @var array */
     public $delayed = [];
 
+    /** @var bool */
+    public $secure = false;
+
     public static function start(): self
     {
         return (new Test(Str::random()))->save();
@@ -42,7 +45,7 @@ class Test implements Arrayable
 
         $this->{$type}[$method] = array_merge(
             $this->{$type}[$method] ?? [],
-            array_keys($request->cookie())
+            collect($request->cookie())->filter(fn ($value) => $value === $this->id)->keys()->all()
         );
     }
 
