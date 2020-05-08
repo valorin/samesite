@@ -3,18 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Test;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
-use Laravel\Lumen\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
     protected function redirect(string $domain, string $path, bool $secure, Test $test): string
     {
         $url = $secure
             ? 'https://'.config('samesite.'.$domain)
-            : 'http://'.config('samesite.insecure.'.$domain).':8080';
+            : 'http://'.config('samesite.insecure.'.$domain).':8000';
 
         return "{$url}/{$path}?id={$test->id}";
     }

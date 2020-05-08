@@ -1,27 +1,27 @@
 <?php
 
-/** @var \Laravel\Lumen\Routing\Router $router */
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Application Routes
+| Web Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register all of the routes for an application.
-| It is a breeze. Simply tell Lumen the URIs it should respond to
-| and give it the Closure to call when that URI is requested.
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
 |
 */
 
-$router->get('/', 'SetupController@start');
-$router->get('setup/shared', 'SetupController@shared');
-$router->get('setup/external', 'SetupController@external');
+Route::get('/', 'SetupController@start');
+Route::get('setup/shared', 'SetupController@shared');
+Route::get('setup/external', 'SetupController@external');
 
-$router->get('test/start/{type}', 'TestController@start');
-$router->post('test/start/{type}', 'TestController@start');
-$router->get('test/shared/{type}', 'TestController@shared');
-$router->post('test/shared/{type}', 'TestController@shared');
-$router->get('test/external/{type}', 'TestController@external');
-$router->post('test/external/{type}', 'TestController@external');
+Route::get('test/start/{type}', 'TestController@start');
+Route::post('test/start/{type}', 'TestController@start');
+Route::get('test/shared/{type}', 'TestController@shared');
+Route::post('test/shared/{type}', 'TestController@shared');
+Route::get('test/external/{type}', 'TestController@external');
+Route::post('test/external/{type}', 'TestController@external');
 
-$router->get('results', 'TestController@results');
+Route::get('results', 'TestController@results');
