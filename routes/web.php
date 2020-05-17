@@ -25,3 +25,10 @@ Route::get('test/external/{type}', 'TestController@external');
 Route::post('test/external/{type}', 'TestController@external');
 
 Route::get('results', 'TestController@results');
+
+Route::get('cookies/reset', 'CookieController@reset');
+Route::get('cookies/set', 'CookieController@set');
+Route::get('cookies/external', 'CookieController@external');
+Route::get('cookies/iframe', 'CookieController@iframe');
+Route::get('cookies/read', 'CookieController@read');
+Route::any('cookies/read', 'CookieController@read');
