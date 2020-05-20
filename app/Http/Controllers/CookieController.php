@@ -25,7 +25,7 @@ class CookieController extends Controller
         $this->setCookie('SecureNoneCookie', 'Cookie set with SameSite=None and Secure', 'None', true);
         $this->setCookie('NoneCookie', 'Cookie set with SameSite=None', 'None');
 
-        $crosssite = config('samesite.crosssite');
+        $external = config('samesite.external');
 
         return implode('<br>', [
             'The following cookies have been set:',
@@ -35,18 +35,18 @@ class CookieController extends Controller
             '"SecureNoneCookie" with <code>Secure</code> and <code>SameSite=None</code>',
             '"NoneCookie" with <code>SameSite=None</code>',
             '',
-            "<a href='https://{$crosssite}/cookies/crosssite'>External Site</a>",
+            "<a href='https://{$external}/cookies/external'>External Site</a>",
         ]);
     }
 
-    public function crosssite(Request $request)
+    public function external(Request $request)
     {
         $domains = config('samesite');
         $read = "https://{$domains['home']}/cookies/read";
 
         return implode('<br>', [
             "<a href='{$read}'>Cross-site GET request</a>",
-            "<a href='https://{$domains['crosssite']}/cookies/iframe'>Cross-site iframe</a>",
+            "<a href='https://{$domains['external']}/cookies/iframe'>Cross-site iframe</a>",
             "<form method='POST' action='{$read}'><button>Cross-site POST request</button></form>",
         ]);
     }
@@ -59,13 +59,13 @@ class CookieController extends Controller
         return implode('<br>', [
             "<iframe width=200 height=200 src='{$get}'></iframe>",
             '',
-            "<a href='https://{$domains['crosssite']}/cookies/crosssite'>External Site</a>",
+            "<a href='https://{$domains['external']}/cookies/external'>External Site</a>",
         ]);
     }
 
     public function read(Request $request)
     {
-        $crosssite = config('samesite.crosssite');
+        $external = config('samesite.external');
 
         return implode('<br>', [
             'Checking cookie status:',
@@ -75,7 +75,7 @@ class CookieController extends Controller
             '"SecureNoneCookie" '.($request->cookie('SecureNoneCookie') ? '✔' : '❌'),
             //'"NoneCookie" '.($request->cookie('NoneCookie') ? '✔' : '❌'),
             '',
-            "<a href='https://{$crosssite}/cookies/crosssite'>External Site</a>",
+            "<a href='https://{$external}/cookies/external'>External Site</a>",
         ]);
     }
 }
