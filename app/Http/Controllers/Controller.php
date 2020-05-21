@@ -20,7 +20,7 @@ class Controller extends BaseController
     {
         $url = $secure
             ? 'https://'.config('samesite.'.$domain)
-            : 'http://'.config('samesite.insecure.'.$domain).':8000';
+            : 'http://'.config('samesite.insecure.'.$domain);
 
         return "{$url}/{$path}?id={$test->id}";
     }
