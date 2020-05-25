@@ -13,7 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'SetupController@start');
+Route::get('/', function () {
+    return "hi.";
+});
+
+Route::get('setup/start', 'SetupController@start');
 Route::get('setup/shared', 'SetupController@shared');
 Route::get('setup/external', 'SetupController@external');
 

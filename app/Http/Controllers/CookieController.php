@@ -18,14 +18,18 @@ class CookieController extends Controller
         return "Cookies forgotten.";
     }
 
-    public function set()
+    public function set(Request $request)
     {
+        $domains = config('samesite');
+
+        if ($request->getHost() != $domains['home']) {
+            return redirect("https://{$domains['home']}/cookies/set");
+        }
+
         $this->setCookie('StrictCookie', 'Cookie set with SameSite=Strict', 'Strict');
         $this->setCookie('LaxCookie', 'Cookie set with SameSite=Lax', 'Lax');
         $this->setCookie('SecureNoneCookie', 'Cookie set with SameSite=None and Secure', 'None', true);
         $this->setCookie('NoneCookie', 'Cookie set with SameSite=None', 'None');
-
-        $external = config('samesite.external');
 
         return implode('<br>', [
             'The following cookies have been set:',
@@ -35,13 +39,18 @@ class CookieController extends Controller
             '"SecureNoneCookie" with <code>Secure</code> and <code>SameSite=None</code>',
             '"NoneCookie" with <code>SameSite=None</code>',
             '',
-            "<a href='https://{$external}/cookies/external'>External Site</a>",
+            "<a href='https://{$domains['external']}/cookies/external'>External Site</a>",
         ]);
     }
 
     public function external(Request $request)
     {
         $domains = config('samesite');
+
+        if ($request->getHost() != $domains['external']) {
+            return redirect("https://{$domains['external']}/cookies/external");
+        }
+
         $read = "https://{$domains['home']}/cookies/read";
 
         return implode('<br>', [
