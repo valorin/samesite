@@ -31,16 +31,7 @@ class CookieController extends Controller
         $this->setCookie('SecureNoneCookie', 'Cookie set with SameSite=None and Secure', 'None', true);
         $this->setCookie('NoneCookie', 'Cookie set with SameSite=None', 'None');
 
-        return implode('<br>', [
-            'The following cookies have been set:',
-            '',
-            '"StrictCookie" with <code>SameSite=Strict</code>',
-            '"LaxCookie" with <code>SameSite=Lax</code>',
-            '"SecureNoneCookie" with <code>Secure</code> and <code>SameSite=None</code>',
-            '"NoneCookie" with <code>SameSite=None</code>',
-            '',
-            "<a href='https://{$domains['external']}/cookies/external'>External Site</a>",
-        ]);
+        return view('cookies.set', ['domains' => $domains]);
     }
 
     public function external(Request $request)
@@ -51,40 +42,24 @@ class CookieController extends Controller
             return redirect("https://{$domains['external']}/cookies/external");
         }
 
-        $read = "https://{$domains['home']}/cookies/read";
-
-        return implode('<br>', [
-            "<a href='{$read}'>Cross-site GET request</a>",
-            "<a href='https://{$domains['external']}/cookies/iframe'>Cross-site iframe</a>",
-            "<form method='POST' action='{$read}'><button>Cross-site POST request</button></form>",
-        ]);
+        return view('cookies.external', ['domains' => $domains]);
     }
 
     public function iframe(Request $request)
     {
-        $domains = config('samesite');
-        $get = "https://{$domains['home']}/cookies/read";
-
-        return implode('<br>', [
-            "<iframe width=200 height=200 src='{$get}'></iframe>",
-            '',
-            "<a href='https://{$domains['external']}/cookies/external'>External Site</a>",
-        ]);
+        return view('cookies.iframe', ['domains' => config('samesite')]);
     }
 
     public function read(Request $request)
     {
-        $external = config('samesite.external');
 
-        return implode('<br>', [
-            'Checking cookie status:',
-            '',
-            '"StrictCookie" '.($request->cookie('StrictCookie') ? '✔' : '❌'),
-            '"LaxCookie" '.($request->cookie('LaxCookie') ? '✔' : '❌'),
-            '"SecureNoneCookie" '.($request->cookie('SecureNoneCookie') ? '✔' : '❌'),
-            //'"NoneCookie" '.($request->cookie('NoneCookie') ? '✔' : '❌'),
-            '',
-            "<a href='https://{$external}/cookies/external'>External Site</a>",
+        return view('cookies.read', [
+            'test' => $request->query('test'),
+           'external' => config('samesite.external'),
+            'strict' => $request->cookie('StrictCookie'),
+            'lax' => $request->cookie('LaxCookie'),
+            'secureNone' => $request->cookie('SecureNoneCookie'),
+            'none' => $request->cookie('NoneCookie'),
         ]);
     }
 }

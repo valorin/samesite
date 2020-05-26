@@ -13,14 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    $home = config('samesite.home');
-
-    return implode('<br>', [
-        "<a href='https://{$home}/cookies/set'>Cookie Testing</a>",
-        "<a href='https://{$home}/setup/start'>SameSite Browser Test</a>",
-    ]);
-});
+Route::view('/', 'home');
 
 Route::get('setup/start', 'SetupController@start');
 Route::get('setup/shared', 'SetupController@shared');
