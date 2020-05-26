@@ -10,7 +10,8 @@
         "StrictCookie" {{ $strict ? '✔' : '❌' }}<br>
         "LaxCookie" {{ $lax ? '✔' : '❌' }}<br>
         "SecureNoneCookie" {{ $secureNone ? '✔' : '❌' }}<br>
-        "NoneCookie" {{ $none ? '✔' : '❌' }}
+        "NoneCookie" {{ $none ? '✔' : '❌' }}<br>
+        "DefaultCookie" {{ $default ? '✔' : '❌' }}
     </p>
 
     @if ($test != 'iframe')
@@ -24,12 +25,7 @@
                 this specific request. All other cookies will have been blocked.
         </em></p>
 
-        <p><em>
-            <strong>"StrictCookie"</strong> (<code>SameSite=Strict</code>) should never sent on cross-site requests.<br>
-            <strong>"LaxCookie"</strong> (<code>SameSite=Lax</code>) should only be sent on cross-site <code>GET</code> requests.<br>
-            <strong>"SecureNoneCookie"</strong> (<code>SameSite=None; Secure</code>) should always be sent on cross-site requests.<br>
-            <strong>"NoneCookie"</strong> (<code>SameSite=None</code>) is invalid and should never rejected by the browser (and never sent).
-        </em></p>
+        @include('cookies.rules')
     @endif
 
 @endsection

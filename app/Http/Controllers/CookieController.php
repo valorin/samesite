@@ -30,6 +30,7 @@ class CookieController extends Controller
         $this->setCookie('LaxCookie', 'Cookie set with SameSite=Lax', 'Lax');
         $this->setCookie('SecureNoneCookie', 'Cookie set with SameSite=None and Secure', 'None', true);
         $this->setCookie('NoneCookie', 'Cookie set with SameSite=None', 'None');
+        $this->setCookie('DefaultCookie', 'Cookie set without a SameSite attribute', null);
 
         return view('cookies.set', ['domains' => $domains]);
     }
@@ -55,11 +56,12 @@ class CookieController extends Controller
 
         return view('cookies.read', [
             'test' => $request->query('test'),
-           'external' => config('samesite.external'),
+            'external' => config('samesite.external'),
             'strict' => $request->cookie('StrictCookie'),
             'lax' => $request->cookie('LaxCookie'),
             'secureNone' => $request->cookie('SecureNoneCookie'),
             'none' => $request->cookie('NoneCookie'),
+            'default' => $request->cookie('DefaultCookie'),
         ]);
     }
 }

@@ -8,7 +8,8 @@
         "StrictCookie" with <code>SameSite=Strict</code><br>
         "LaxCookie" with <code>SameSite=Lax</code><br>
         "SecureNoneCookie" with <code>Secure</code> and <code>SameSite=None</code><br>
-        "NoneCookie" with <code>SameSite=None</code>
+        "NoneCookie" with <code>SameSite=None</code><br>
+        "DefaultCookie" with no <code>SameSite</code> attribute
     </p>
 
     <p>The next step is to <a href='https://{{ $domains['external'] }}/cookies/external'>go to External Site</a>.</p>
