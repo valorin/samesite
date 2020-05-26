@@ -13,7 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'home');
+Route::get('/', function (\Illuminate\Http\Request $request) {
+    if (! $request->isSecure()) {
+        return redirect()->secure('/', 301);
+    }
+
+    return view('home');
+});
 
 Route::get('setup/start', 'SetupController@start');
 Route::get('setup/shared', 'SetupController@shared');
