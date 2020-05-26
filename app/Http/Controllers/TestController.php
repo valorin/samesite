@@ -9,12 +9,6 @@ class TestController extends Controller
 {
     public function start(Request $request)
     {
-        $home = config('samesite.home');
-
-        if ($request->getHost() != $home) {
-            return redirect("https://{$home}/setup/start");
-        }
-
         $type = $request->route('type');
         $test = $this->loadTest($request);
         $this->log($test, "Starting {$type} test");
