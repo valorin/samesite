@@ -3,6 +3,7 @@
 @section('content')
 
     @if ($test != 'iframe')
+        <h2>Manual SameSite Cookie Test</h2>
         <p>SameSite Cookie Status: <strong><code>{{ $test }}</code></strong></p>
     @endif
 

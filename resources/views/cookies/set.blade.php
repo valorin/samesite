@@ -2,6 +2,7 @@
 
 @section('content')
 
+    <h2>Manual SameSite Cookie Test</h2>
     <p>The following cookies have been set:</p>
 
     <p>

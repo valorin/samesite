@@ -2,6 +2,8 @@
 
 @section('content')
 
+    <h2>Manual SameSite Cookie Test</h2>
+
     <p>SameSite Cookie Status: <strong><code>&lt;iframe&gt;</code></strong></p>
 
     <iframe width=200 height=150 src='https://{{ $domains['home'] }}/cookies/read?test=iframe'></iframe>

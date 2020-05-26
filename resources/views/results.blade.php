@@ -1,6 +1,9 @@
 @extends('layout')
 
 @section('content')
+
+    <h2>Automatic SameSite Browser Test</h2>
+
     <?php
     $cookies = [
         'http_shared_none', 'http_shared_none_secure', 'http_shared_lax', 'http_shared_strict', 'http_shared_default', 'http_shared_invalid',
@@ -13,7 +16,7 @@
     <table>
         <tr>
             <td>
-                <h1>Recent Requests</h1>
+                <h3>Recent Requests (<2 min)</h3>
                 <table>
                     <tr>
                         <th>Cookie</th>
@@ -39,7 +42,7 @@
             </td>
             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td>
-                <h1>Delayed Requests</h1>
+                <h3>Delayed Requests (2+ min)</h3>
                 <table>
                     <tr>
                         <th>Cookie</th>
@@ -65,4 +68,12 @@
             </td>
         </tr>
     </table>
+
+    <hr>
+
+    <p>
+        <em>The table lists all of the cookie check results for the different cookies and request types identified
+        during the test.</em>
+    </p>
+
 @endsection

@@ -2,6 +2,8 @@
 
 @section('content')
 
+    <h2>Manual SameSite Cookie Test</h2>
+
     <p>Perform a cross-site request back to <code>{{ $domains['home'] }}</code> to test the SameSite cookie attribute:</p>
 
     <p><a href='https://{{ $domains['home'] }}/cookies/read?test=GET'>Cross-site GET request</a></p>

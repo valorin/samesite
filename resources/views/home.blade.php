@@ -5,7 +5,7 @@
     <h2>Available Tests</h2>
 
     <p>
-        <strong><a href='https://{{ config('samesite.home') }}/cookies/set'>Manual SameSite Cookie Testing</a></strong>
+        <strong><a href='https://{{ config('samesite.home') }}/cookies/set'>Manual SameSite Cookie Test</a></strong>
         <br>
         Manually test the behaviour of SameSite cookies in your browser across the different cross-site
         request types: <code>GET</code>, <code>POST</code>, and embedded content.
