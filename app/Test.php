@@ -7,11 +7,15 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
+use Jenssegers\Agent\Facades\Agent;
 
 class Test implements Arrayable
 {
     /** @var string */
     public $id;
+
+    /** @var string */
+    public $browser;
 
     /** @var bool */
     public $shared = false;
@@ -30,12 +34,16 @@ class Test implements Arrayable
 
     public static function start(): self
     {
-        return (new Test(Str::random()))->save();
+        $id = Str::random();
+        $browser = Agent::browser().' '.Agent::version(Agent::browser()).' on '.Agent::platform();
+
+        return (new Test($id, $browser))->save();
     }
 
-    public function __construct(string $id)
+    public function __construct(string $id, string $browser)
     {
         $this->id = $id;
+        $this->browser = $browser;
     }
 
     public function appendCookies(Request $request)
@@ -60,6 +68,7 @@ class Test implements Arrayable
     {
         return [
             'id' => $this->id,
+            'browser' => $this->browser,
             'shared' => $this->shared,
             'external' => $this->external,
             'recent' => $this->recent,
