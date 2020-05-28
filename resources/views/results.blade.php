@@ -3,7 +3,6 @@
 @section('content')
 
     <h2>Automatic SameSite Browser Test</h2>
-    <p><em>{{ $test->browser }}</em></p>
 
     <?php
     $cookies = [

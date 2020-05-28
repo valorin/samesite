@@ -18,7 +18,7 @@ class SetupController extends Controller
 
     public function shared(Request $request)
     {
-        $test = $this->loadTest($request);
+        $test = Test::load($request);
         $test->shared = true;
         $test->save();
 
@@ -29,7 +29,7 @@ class SetupController extends Controller
 
     public function external(Request $request)
     {
-        $test = $this->loadTest($request);
+        $test = Test::load($request);
         $test->external = true;
         $test->save();
 

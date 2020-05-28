@@ -25,11 +25,6 @@ class Controller extends BaseController
         return "{$url}/{$path}?id={$test->id}";
     }
 
-    protected function loadTest(Request $request): Test
-    {
-        return Cache::get($request->query('id'));
-    }
-
     protected function log(Test $test, string $message)
     {
         Log::info("[{$test->id}] {$message}", (array) $test);

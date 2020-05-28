@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Test;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -10,7 +11,7 @@ class TestController extends Controller
     public function start(Request $request)
     {
         $type = $request->route('type');
-        $test = $this->loadTest($request);
+        $test = Test::load($request);
         $this->log($test, "Starting {$type} test");
 
         if ($this->isPost($request)) {
@@ -30,7 +31,7 @@ class TestController extends Controller
     public function shared(Request $request)
     {
         $type = $request->route('type');
-        $test = $this->loadTest($request);
+        $test = Test::load($request);
         $test->appendCookies($request);
         $test->save();
 
@@ -47,7 +48,7 @@ class TestController extends Controller
     public function external(Request $request)
     {
         $type = $request->route('type');
-        $test = $this->loadTest($request);
+        $test = Test::load($request);
         $test->appendCookies($request);
         $test->save();
 
@@ -79,7 +80,7 @@ class TestController extends Controller
 
     public function results(Request $request)
     {
-        return view('results', ['test' => $this->loadTest($request)]);
+        return view('results', ['test' => Test::load($request)]);
     }
 
     protected function isIframe(Request $request): bool
