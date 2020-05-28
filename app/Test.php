@@ -6,6 +6,7 @@ use DateTime;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 
 class Test implements Arrayable
@@ -28,14 +29,24 @@ class Test implements Arrayable
     /** @var bool */
     public $secure = false;
 
+    /** @var int */
+    public $totalTests = 44;
+
+    /** @var int */
+    public $progress = 0;
+
     public static function start(): self
     {
-        return (new Test(Str::random()))->save();
+        $test = (new Test(Str::random()))->save();
+        View::share('test', $test);
+
+        return $test;
     }
 
     public static function load(Request $request): self
     {
         abort_unless($test = Cache::get($request->query('id')), 404);
+        View::share('test', $test);
 
         return $test;
     }
@@ -54,6 +65,11 @@ class Test implements Arrayable
             $this->{$type}[$method] ?? [],
             collect($request->cookie())->filter(fn ($value) => $value === $this->id)->keys()->all()
         );
+    }
+
+    public function incrementProgress()
+    {
+        $this->progress += 1;
     }
 
     public function save(): self

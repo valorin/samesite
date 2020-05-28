@@ -12,7 +12,8 @@ class TestController extends Controller
     {
         $type = $request->route('type');
         $test = Test::load($request);
-        $this->log($test, "Starting {$type} test");
+        $test->incrementProgress();
+        $test->save();
 
         if ($this->isPost($request)) {
             return view('redirect', [
@@ -32,6 +33,7 @@ class TestController extends Controller
     {
         $type = $request->route('type');
         $test = Test::load($request);
+        $test->incrementProgress();
         $test->appendCookies($request);
         $test->save();
 
@@ -49,6 +51,7 @@ class TestController extends Controller
     {
         $type = $request->route('type');
         $test = Test::load($request);
+        $test->incrementProgress();
         $test->appendCookies($request);
         $test->save();
 

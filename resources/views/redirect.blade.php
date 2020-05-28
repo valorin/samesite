@@ -6,8 +6,6 @@
 
     <p>Redirecting to <code>{{ $url }}</code> in <span id="seconds">{{ $delay ?? 0 }}</span> seconds...</p>
 
-    <p><strong>Please do not close this window.</strong></p>
-
     @if ($post ?? false)
         <form id="submit" method="post" action="{!! $url !!}"><button type="submit">Submitting...</button></form>
     @endif
@@ -31,6 +29,10 @@
             delay -= 1;
         }, 1000);
     </script>
+
+    @include('progress')
+
+    <p><strong>Please do not close this window.</strong></p>
 
     <hr>
 

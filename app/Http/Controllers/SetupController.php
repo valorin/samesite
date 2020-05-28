@@ -25,6 +25,7 @@ class SetupController extends Controller
     {
         $test = Test::load($request);
         $test->shared = true;
+        $test->incrementProgress();
         $test->save();
 
         $this->setCookies('shared', $request->isSecure(), $test);
@@ -36,6 +37,7 @@ class SetupController extends Controller
     {
         $test = Test::load($request);
         $test->external = true;
+        $test->incrementProgress();
         $test->save();
 
         $this->setCookies('external', $request->isSecure(), $test);

@@ -6,6 +6,8 @@
 
     <p>Testing cross-site <code>&lt;iframe&gt;</code> and <code>&lt;img&gt;</code> requests.</p>
 
+    @include('progress')
+
     <p><strong>Please do not close this window.</strong></p>
 
     <div id="sharedFrame"></div>
