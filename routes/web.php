@@ -21,7 +21,8 @@ Route::get('/', function (\Illuminate\Http\Request $request) {
     return view('home');
 });
 
-Route::get('setup/start', 'SetupController@start');
+Route::get('setup/confirm', 'SetupController@confirm');
+Route::post('setup/start', 'SetupController@start');
 Route::get('setup/shared', 'SetupController@shared');
 Route::get('setup/external', 'SetupController@external');
 

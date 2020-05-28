@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Log;
 
 class SetupController extends Controller
 {
+    public function confirm()
+    {
+        return view('confirm');
+    }
+
     public function start()
     {
         $test = Test::start();
