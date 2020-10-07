@@ -37,7 +37,7 @@
     <hr>
 
     <p>
-        <em>Your browser will automatically redirect been the various same-site and cross-site domains in the test.
+        <em>Your browser will automatically redirect between the various same-site and cross-site domains in the test.
             Checking the cookies available in each, as per the request performed. <strong>It will take more than 2 minutes!</strong>
             Please do not close this window, or the test will be aborted. You need to wait until the results are shown.
         </em>
