@@ -20,7 +20,7 @@
 
         <p><a href="https://{{ config('samesite.home') }}">Available Tests</a></p>
         <p>
-            <em>An experiment by <a href="https://stephenreescarter.net/">Stephen Rees-Carter</a> for <a href="https://src.id.au/csrf">"CSRF is dead (or is it?)"</a>.<br>
+            <em>An experiment by <a href="https://stephenreescarter.net/">Stephen Rees-Carter</a> for <a href="https://src.id.au/csrf">"CSRF is dead (or is it?)"</a> and <a href="https://src.id.au/samesite">"SameSite Cookies Deep Dive"</a>.<br>
             <a href="https://github.com/valorin/samesite" target="_blank" rel="noreferrer noopener">Source Code on GitHub</a>, PRs welcome.</em>
         </p>
     @endif
