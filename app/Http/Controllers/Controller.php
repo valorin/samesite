@@ -9,8 +9,9 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Cookie as CookieFacade;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpFoundation\Cookie;
 
 class Controller extends BaseController
 {
@@ -32,16 +33,16 @@ class Controller extends BaseController
 
     protected function setCookie(string $name, string $value, ?string $sameSite, bool $secure = false)
     {
-        Cookie::queue(
+        CookieFacade::queue(new Cookie(
             $name,
             $value,
             0,          // $minutes
-            null,       // $path
+            '/',       // $path
             null,       // $domain
             $secure,
             true,       // $httpOnly
             true,       // $raw
             $sameSite
-        );
+        ));
     }
 }
