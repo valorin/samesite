@@ -26,11 +26,11 @@ class CookieController extends Controller
             return redirect("https://{$domains['home']}/cookies/set");
         }
 
-        $this->setCookie('StrictCookie', 'Cookie set with SameSite=Strict', 'Strict');
-        $this->setCookie('LaxCookie', 'Cookie set with SameSite=Lax', 'Lax');
-        $this->setCookie('SecureNoneCookie', 'Cookie set with SameSite=None and Secure', 'None', true);
-        $this->setCookie('NoneCookie', 'Cookie set with SameSite=None', 'None');
-        $this->setCookie('DefaultCookie', 'Cookie set without a SameSite attribute', null);
+        $this->setCookie('StrictCookie', 'Cookie-set-with-SameSite=Strict', 'Strict');
+        $this->setCookie('LaxCookie', 'Cookie-set-with-SameSite=Lax', 'Lax');
+        $this->setCookie('SecureNoneCookie', 'Cookie-set-with-SameSite=None and Secure', 'None', true);
+        $this->setCookie('NoneCookie', 'Cookie-set-with-SameSite=None', 'None');
+        $this->setCookie('DefaultCookie', 'Cookie-set-without-a-SameSite attribute', null);
 
         return view('cookies.set', ['domains' => $domains]);
     }
